@@ -7,6 +7,41 @@
 library(haven)
 sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_jan2020sample0_11.sav')
 
+
+# Age descriptive stats
+summary(sms_sample0$AGE)
+sd(sms_sample0$AGE, na.rm = TRUE) #standard deviation
+
+
+# Percent female 
+sum(sms_sample0$GENDER == 2, na.rm = TRUE) / nrow(sms_sample0) * 100
+sum(sms_sample0$GENDER == 1, na.rm = TRUE) / nrow(sms_sample0) * 100 #male
+sum(sms_sample0$GENDER == 5, na.rm = TRUE) / nrow(sms_sample0) * 100 #prefer not to ans
+sum(is.na(sms_sample$GENDER)) / nrow(sms_sample0) * 100 #na
+
+# Percent African American
+sum(sms_sample0$RACE == 1, na.rm = T) / nrow(sms_sample0) * 100
+sum(sms_sample0$RACE == 2, na.rm = T) / nrow(sms_sample0) * 100 #asian/pacificislander
+sum(sms_sample0$RACE == 3, na.rm = T) / nrow(sms_sample0) * 100 #white
+sum(sms_sample0$RACE == 4, na.rm = T) / nrow(sms_sample0) * 100 #latino
+sum(is.na(sms_sample0$RACE)) / nrow(sms_sample0) * 100 #na
+
+# Duration of activity
+sms_sample0$LENGTH_MIN[sms_sample0$LENGTH_MIN == 999] <- NA
+summary(sms_sample0$LENGTH_MIN)
+sd(sms_sample0$LENGTH_MIN, na.rm = T)
+
+# Percent activity type
+sum(sms_sample0$CLASS == "PEACT 118") / nrow(sms_sample0) * 100 
+sum(sms_sample0$CLASS == "PEACT 112") / nrow(sms_sample0) * 100 
+sum(sms_sample0$CLASS == "UREC") / nrow(sms_sample0) * 100 
+
+
+
+
+
+
+
 # Create new data frame with columns from SMindM_1 to AcceptB_13 
 library(dplyr)
 sms_sample0 <- sms_sample0 %>% 
