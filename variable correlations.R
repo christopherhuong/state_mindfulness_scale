@@ -13,39 +13,25 @@ is.na(sms1) <- sms1 == 88
 
 library(car)
 
-# Reverse STAI_2,3,6 scores
-table(sms1$STAI_2) #Check score frequencies
-sms1$STAI_1 = recode(sms1$STAI_1, "1=4; 2=3; 3=2; 4=1") 
-sms1$STAI_4 = recode(sms1$STAI_4, "1=4; 2=3; 3=2; 4=1")
-sms1$STAI_5 = recode(sms1$STAI_5, "1=4; 2=3; 3=2; 4=1")
+# Reverse STAI_1,4,5 scores
+table(sms1$STAI_1) #Check score frequencies
+
+sms1[, c("STAI_1", "STAI_4", "STAI_5")] <-
+  5-sms1[, c("STAI_1", "STAI_4", "STAI_5")]
 
 
 # Reverse SBS_1,2,3,6,7 scores
 table(sms1$SBS_1)
-sms1$SBS_1 = recode(sms1$SBS_1, "1=7; 2=6; 3=5; 4=4; 5=3; 6=2; 7=1") 
-sms1$SBS_2 = recode(sms1$SBS_2, "1=7; 2=6; 3=5; 4=4; 5=3; 6=2; 7=1")
-sms1$SBS_3 = recode(sms1$SBS_3, "1=7; 2=6; 3=5; 4=4; 5=3; 6=2; 7=1")
-sms1$SBS_6 = recode(sms1$SBS_6, "1=7; 2=6; 3=5; 4=4; 5=3; 6=2; 7=1")
-sms1$SBS_7 = recode(sms1$SBS_7, "1=7; 2=6; 3=5; 4=4; 5=3; 6=2; 7=1")
+
+sms1[, c("SBS_1", "SBS_2", "SBS_3", "SBS_6", "SBS_7")] <-
+  8-sms1[, c("SBS_1", "SBS_2", "SBS_3", "SBS_6", "SBS_7")]
 
 
 # Reverse al MAAS scores
 table(sms1$MAAS_1)
-sms1$MAAS_1 = recode(sms1$MAAS_1, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_2 = recode(sms1$MAAS_2, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_3 = recode(sms1$MAAS_3, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_4 = recode(sms1$MAAS_4, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_5 = recode(sms1$MAAS_5, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_6 = recode(sms1$MAAS_6, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_7 = recode(sms1$MAAS_7, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_8 = recode(sms1$MAAS_8, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_9 = recode(sms1$MAAS_9, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_10 = recode(sms1$MAAS_10, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_11 = recode(sms1$MAAS_11, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_12 = recode(sms1$MAAS_12, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_13 = recode(sms1$MAAS_13, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_14 = recode(sms1$MAAS_14, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
-sms1$MAAS_15 = recode(sms1$MAAS_15, "1=6; 2=5; 3=4; 4=3; 5=2; 6=1")
+
+sms1[, c(73:87)] <-
+  7-sms1[, c(73:87)]
 
 
 
