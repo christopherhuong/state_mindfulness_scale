@@ -203,7 +203,7 @@ sum(parallel$fa.values > .7) #new Kaiser criteria
 
 nf = 4 #number of factors
 
-fa(efadat, nfactors = 4,
+fa(efadat, nf = 4,
    rotate = "promax", 
    fm = "ml")
 
@@ -211,7 +211,7 @@ fa(efadat, nfactors = 4,
 # Remove AcceptM_7 (19) for loading > 0.3 on 2 factors
 # Remove AcceptB_1 (20) for loading > 0.3 on 2 factors
 # Remove AcceptB_2 (21) for conceptual reasons
-efadat[ , -c(17, 19, 20, 21)] %>% 
+initial<-efadat[ , -c(17, 19, 20, 21)] %>% 
   fa(nfactors = nf,
    rotate = "promax",
    fm = "ml")

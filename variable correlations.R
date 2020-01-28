@@ -7,9 +7,9 @@ library(dplyr)
 sum(is.na(sms1))
 is.na(sms1) <- sms1 == 88
 
-
-
-
+smsyoga <- filter(sms1, CLASS == "PEACT 118")
+smsnotyoga <- filter(sms1, CLASS != "PEACT 118")
+#anova on these 2
 
 library(car)
 
@@ -28,7 +28,7 @@ sms1[, c("SBS_1", "SBS_2", "SBS_3", "SBS_6", "SBS_7")] <-
 
 
 # Reverse al MAAS scores
-table(sms1$MAAS_1)
+table(sms1$MAAS_2)
 
 sms1[, c(73:87)] <-
   7-sms1[, c(73:87)]
@@ -40,6 +40,11 @@ sms1$SMindM_MEAN <- rowMeans(select(sms1, SMindM_1, SMindM_3, SMindM_4, SMindM_5
 sms1$SMindB_MEAN <- rowMeans(select(sms1, SMindB_3, SMindB_4, SMindB_5, SMindB_6))
 sms1$AcceptM_MEAN <- rowMeans(select(sms1, AcceptM_3, AcceptM_4, AcceptM_6))
 sms1$AcceptB_MEAN <- rowMeans(select(sms1, AcceptB_3, AcceptB_4, AcceptB_5, AcceptB_6))
+
+
+
+sms1$SMindM_ORIGINAL <- rowMeans(select(sms1, SMindM_1, SMindM_2, SMindM_3, SMindM_4, SMindM_5, SMindM_6))
+sms1$SMindB_ORIGINAL <- rowMeans(select(sms1, SMindB_1, SMindB_2, SMindB_3, SMindB_4, SMindB_5, SMindB_6))
 
 #new column for SBS mean
 sms1$SBS_MEAN <- rowMeans(select(sms1, SBS_1:SBS_7))
@@ -64,7 +69,7 @@ sms1$MAAS_MEAN <- rowMeans(select(sms1, MAAS_1:MAAS_15))
 VAR_COR <- select(sms1, Rem_Affect, For_Affect, 
                   SMindM_MEAN, SMindB_MEAN, AcceptM_MEAN, AcceptB_MEAN,
                   SBS_MEAN, SIM_MEAN, SBA_MEAN,
-                  STAI_MEAN, BREQ_MEAN, MAAS_MEAN)
+                  STAI_MEAN, BREQ_MEAN, MAAS_MEAN, SMindM_ORIGINAL, SMindB_ORIGINAL)
 
 
 
@@ -72,18 +77,29 @@ VAR_COR <- select(sms1, Rem_Affect, For_Affect,
 library(psych)
 cor_matrix <- cor(VAR_COR, use = "complete.obs") #casewise deletion
 cor_matrix
+
+
 # Correlogram w/significance using corrplot
 library(corrplot)
 correlation.pvalues <- cor.mtest(cor_matrix)
 
-corrplot(cor_matrix, method = "number", type = "upper", order = "original",
+corrplot(cor_matrix, method = "number",col="black", type = "upper", order = "original",
          p.mat = correlation.pvalues[["p"]], sig.level = .05)
+
+corrplot(cor_matrix, method = "number",col="black", tl.col="black", type = "upper")
+
 
 
 # Cronbachs alpha, standardized w CI
+library(ltm)
+
+SBS_DF <- select(sms1, SBS_1:SBS_7)
+
+
+
 cronbach.alpha(VAR_COR, standardized = T, CI = T, na.rm = T)
 
-
+## items within each variable
 
 
 
