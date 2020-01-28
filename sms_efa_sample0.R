@@ -53,6 +53,10 @@ is.na(sms_sample0) <- sms_sample0 == 88
 is.na(sms_sample0) <- sms_sample0 > 4
 sum(is.na(sms_sample0))
 
+library(BaylorEdPsych)
+library(mvnmle)
+LittleMCAR(sms_sample1)
+
 # Name data frame 'efadat'
 efadat <- sms_sample0
 

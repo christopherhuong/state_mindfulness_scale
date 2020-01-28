@@ -3,10 +3,10 @@ sms1 <- read_spss("S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW.sav")
 
 library(dplyr)
 
-STAI <- select(sms1, STAI_1:STAI_6)
-sum(is.na(STAI))
+
+sum(is.na(sms1))
 is.na(sms1) <- sms1 == 88
-is.na(sms1) <- sms1 > 4
+
 
 
 
@@ -15,9 +15,9 @@ library(car)
 
 # Reverse STAI_2,3,6 scores
 table(sms1$STAI_2) #Check score frequencies
-sms1$STAI_2 = recode(sms1$STAI_2, "1=4; 2=3; 3=2; 4=1") 
-sms1$STAI_3 = recode(sms1$STAI_3, "1=4; 2=3; 3=2; 4=1")
-sms1$STAI_6 = recode(sms1$STAI_6, "1=4; 2=3; 3=2; 4=1")
+sms1$STAI_1 = recode(sms1$STAI_1, "1=4; 2=3; 3=2; 4=1") 
+sms1$STAI_4 = recode(sms1$STAI_4, "1=4; 2=3; 3=2; 4=1")
+sms1$STAI_5 = recode(sms1$STAI_5, "1=4; 2=3; 3=2; 4=1")
 
 
 # Reverse SBS_1,2,3,6,7 scores
@@ -90,11 +90,12 @@ cor_matrix
 library(corrplot)
 correlation.pvalues <- cor.mtest(cor_matrix)
 
-corrplot(cor_matrix, method = "number", type = "upper",
+corrplot(cor_matrix, method = "number", type = "upper", order = "original",
          p.mat = correlation.pvalues[["p"]], sig.level = .05)
 
 
-
+# Cronbachs alpha, standardized w CI
+cronbach.alpha(VAR_COR, standardized = T, CI = T, na.rm = T)
 
 
 

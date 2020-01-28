@@ -34,11 +34,17 @@ library(dplyr)
 sms_sample1 <- select(sms_sample1, SMindM_1:AcceptB_13)
 
 
+
+
 # Count NA's, replace '88's with NA, recount NA's
 sum(is.na(sms_sample1))
 is.na(sms_sample1) <- sms_sample1 == 88
 is.na(sms_sample1) <- sms_sample1 > 4
 sum(is.na(sms_sample1))
+
+library(BaylorEdPsych)
+library(mvnmle)
+LittleMCAR(sms_sample1)
 
 
 
