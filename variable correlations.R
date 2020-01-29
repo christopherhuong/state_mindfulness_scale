@@ -75,7 +75,7 @@ VAR_COR <- select(sms1, Rem_Affect, For_Affect,
 
 
 library(psych)
-cor_matrix <- cor(VAR_COR, use = "complete.obs") #casewise deletion
+cor_matrix <- cor(VAR_COR, use = "pairwise.complete.obs") #casewise deletion
 cor_matrix
 
 
