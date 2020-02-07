@@ -1,6 +1,6 @@
 library(haven)
-sms_sample1 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_jan2020sample1_147.sav')
-
+sms_sample1 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW.sav')
+sms_sample1 <- filter(sms_sample1, Sample == 0)
 
 # Age descriptive stats
 summary(sms_sample1$AGE)

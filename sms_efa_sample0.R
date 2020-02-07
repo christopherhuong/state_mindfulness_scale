@@ -5,7 +5,9 @@
 
 # Import sav file as data frame
 library(haven)
-sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_jan2020sample0_139.sav')
+sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW.sav')
+
+sms_sample0 <- filter(sms_sample0, Sample == 0)
 
 library(psych)
 library(dplyr)
@@ -75,8 +77,6 @@ apply(efadat, 2, percentmiss)
 # Number of subjects with missing values by percent
 table(apply(efadat, 1, percentmiss))
 
-# Remove subject with all NA
-efadat <- efadat[-c(2), ]
 
 
 # Correlation Matrix
