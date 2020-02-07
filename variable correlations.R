@@ -7,8 +7,7 @@ library(dplyr)
 sum(is.na(sms1))
 is.na(sms1) <- sms1 == 88
 
-smsyoga <- filter(sms1, CLASS == "PEACT 118")
-smsnotyoga <- filter(sms1, CLASS != "PEACT 118")
+
 #anova on these 2
 
 library(car)
