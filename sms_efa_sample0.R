@@ -263,10 +263,10 @@ finalmodel <- fa(efadat[ , -c()], nfactors = nf,
       (finalmodel$null.chisq-finalmodel$null.dof))
 
 ### reliability analysis
-SMindM <- c(1:5)
-SMindB <- c(8:12)
-AcceptM <- c(13,14,15,16,18)
-AcceptB <- c(25,26,30,31,32)
+SMindM <- c(1,3,4,5)
+SMindB <- c(9,10,11,12)
+AcceptM <- c(15,16,18)
+AcceptB <- c(22,23,24,25)
 
 alpha(efadat[, SMindM])
 alpha(efadat[, SMindB])

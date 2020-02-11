@@ -17,8 +17,6 @@ sms1[, c("SBS_1", "SBS_2", "SBS_3", "SBS_6", "SBS_7")] <-
 # Reverse al MAAS scores
 sms1[, c(73:87)] <- 7-sms1[, c(73:87)]
 
-
-
 #new column for variable means
 sms1$SMindM_MEAN <- rowMeans(select(sms1, SMindM_1, SMindM_3, SMindM_4, SMindM_5))
 sms1$SMindB_MEAN <- rowMeans(select(sms1, SMindB_3, SMindB_4, SMindB_5, SMindB_6))
@@ -42,6 +40,16 @@ smsnotyoga <- filter(sms1, CLASS != "PEACT 118")
 
 
 # T-Test of variable means between yoga and non yoga groups
+t.test(smsyoga$Affect, smsnotyoga$Affect)
+t.test(smsyoga$MAAS_MEAN, smsnotyoga$MAAS_MEAN)
+
+
+# ANOVA yoga levels
+sms1$YOGA_LEVEL <- as.factor(sms1$YOGA_LEVEL)
+mdel <- lm(MAAS_MEAN ~ YOGA_LEVEL, data = sms1)
+summary(aov(mdel))
+        
+
 # Test of normality
 
 

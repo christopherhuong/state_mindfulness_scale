@@ -7,8 +7,11 @@ library(dplyr)
 sum(is.na(sms1))
 is.na(sms1) <- sms1 == 88
 
+#percent female 
+sum(sms1$GENDER==2, na.rm = T) / nrow(sms1) * 100
+#percent caucasian
+sum(sms1$RACE==3, na.rm = T) / nrow(sms1) * 100
 
-#anova on these 2
 
 library(car)
 
@@ -123,7 +126,9 @@ cor.test(sms1$STAI_MEAN, sms1$BREQ_MEAN,
 # forecasted affect  For_Affect
 
 # internal consistency and reliability with each variable
-# 
+alpha(select(sms1, SMindM_1:SMindM_6))
+alpha(select(sms1, SMindB_1:SMindB_6))
+alpha(select(sms1, AcceptM_1:AcceptM_7))
+alpha(select(sms1, AcceptB_1:AcceptB_13))
 
-
-# 11x11 correlation matrix
+alpha(select(sms1, SMindM_1:AcceptB_13))
