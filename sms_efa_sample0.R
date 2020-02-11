@@ -6,11 +6,11 @@
 # Import sav file as data frame
 library(haven)
 sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW.sav')
-
+library(dplyr)
 sms_sample0 <- filter(sms_sample0, Sample == 0)
 
 library(psych)
-library(dplyr)
+
 library(GPArotation)
 # Age descriptive stats
 summary(sms_sample0$AGE)
@@ -203,14 +203,14 @@ sum(parallel$fa.values > .7) #new Kaiser criteria
 
 nf = 4 #number of factors
 
-fa(efadat, nf = 4,
-   rotate = "promax", 
+one <- fa(efadat[, -c(19)], #AcceptM_7 is duplicate
+   rotate = "promax",  nf = 4,
    fm = "ml")
+#average communality
+com <- one[["communality"]]
+sum(com) / length(com)
 
-# Remove AcceptM_5 (17) for conceptual reasons
-# Remove AcceptM_7 (19) for loading > 0.3 on 2 factors
-# Remove AcceptB_1 (20) for loading > 0.3 on 2 factors
-# Remove AcceptB_2 (21) for conceptual reasons
+# Remove AcceptB_3() for cross loading
 initial<-efadat[ , -c(17, 19, 20, 21)] %>% 
   fa(nfactors = nf,
    rotate = "promax",
