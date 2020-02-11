@@ -9,6 +9,9 @@ sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW.s
 library(dplyr)
 sms_sample0 <- filter(sms_sample0, Sample == 0)
 
+sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_jan2020sample0_139.sav')
+
+
 library(psych)
 
 library(GPArotation)

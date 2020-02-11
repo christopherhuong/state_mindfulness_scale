@@ -11,7 +11,14 @@ is.na(sms1) <- sms1 == 88
 sum(sms1$GENDER==2, na.rm = T) / nrow(sms1) * 100
 #percent caucasian
 sum(sms1$RACE==3, na.rm = T) / nrow(sms1) * 100
-
+# Percent activity type
+sum(sms1$CLASS == "PEACT 118") / nrow(sms1) * 100 
+sum(sms1$CLASS == "PEACT 112") / nrow(sms1) * 100 
+sum(sms1$CLASS == "UREC") / nrow(sms1) * 100 
+#duration of activity
+sms1$LENGTH_MIN[sms1$LENGTH_MIN == 999] <- NA
+summary(sms1$LENGTH_MIN)
+sd(sms_sample0$LENGTH_MIN, na.rm = T)
 
 library(car)
 
