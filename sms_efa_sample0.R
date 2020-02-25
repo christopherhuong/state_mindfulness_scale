@@ -5,11 +5,11 @@
 
 # Import sav file as data frame
 library(haven)
-sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW.sav')
+sms1 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW_2_25_2020.sav')
 library(dplyr)
-sms_sample0 <- filter(sms_sample0, Sample == 0)
+sms_sample0 <- filter(sms1, Sample == 0)
 
-sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_jan2020sample0_139.sav')
+# sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_jan2020sample0_139.sav')
 
 
 library(psych)
