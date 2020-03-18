@@ -1,6 +1,6 @@
 library(haven)
-sms_sample1 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW.sav')
-sms_sample1 <- filter(sms_sample1, Sample == 0)
+sms_sample1 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_EM394.sav')
+sms_sample1 <- filter(sms_sample1, Sample == 1)
 
 # Age descriptive stats
 summary(sms_sample1$AGE)
@@ -60,10 +60,10 @@ table(apply(sms_sample1, 1, percentmiss))
 library(lavaan)
 
 model <-
-'SMindM =~ SMindM_1 + SMindM_3 + SMindM_4 + SMindM_5
-SMindB =~  SMindB_3 + SMindB_4 + SMindB_5 + SMindB_6
+'SMindM =~ SMindM_2 + SMindM_3 + SMindM_6
+SMindB =~  SMindB_2 + SMindB_3 + SMindB_4 + SMindB_6
 AcceptM =~ AcceptM_3 + AcceptM_4 + AcceptM_6
-AcceptB =~ AcceptB_3 + AcceptB_4 + AcceptB_5 + AcceptB_6'
+AcceptB =~ AcceptB_6 + AcceptB_7 + AcceptB_8'
 
 # Default = unit loading identification
 # Unit variance identification -> 'std.lv = T'
@@ -84,9 +84,9 @@ mind.factor =~ SMindM_1 + SMindM_3 + SMindM_4 + SMindM_5 +
 AcceptM_3 + AcceptM_4 + AcceptM_6'
 
 
-bf.fit2 <- cfa(bf.model, data = sms_sample1, orthogonal = T)
+bf.fit2 <- cfa(bf.model2, data = efadat, orthogonal = T)
 
-summary(bf.fit, fit.measures = T, rsq = T, standardized = T)
+summary(bf.fit2, fit.measures = T, rsq = T, standardized = T)
 
 
 bf.model4 <-
@@ -99,7 +99,7 @@ SMindB =~  SMindB_3 + SMindB_4 + SMindB_5 + SMindB_6
 AcceptM =~ AcceptM_3 + AcceptM_4 + AcceptM_6
 AcceptB =~ AcceptB_3 + AcceptB_4 + AcceptB_5 + AcceptB_6'
 
-bf.fit4 <- cfa(bf.model4, data = sms_sample1, estimator = "WLSMVS")
+bf.fit4 <- cfa(bf.model4, data = efadat, estimator = "WLSMVS")
 
 summary(bf.fit4, fit.measures = T, rsq = T, standardized = T)
 

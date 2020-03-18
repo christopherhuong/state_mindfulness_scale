@@ -1,16 +1,18 @@
 #Packages: haven, dplyr, psych, corrplot
-
+rm(list = ls())
 ### Importing and Cleaning Data
 # Klinke, S., & Wagner, C. (2008). Visualizing exploratory factor analysis models (No. 2008, 012). SFB 649 discussion paper.
 
 # Import sav file as data frame
 library(haven)
-sms1 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_RAW_2_25_2020.sav')
+sms_efa <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_EM394.sav')
 library(dplyr)
-sms_sample0 <- filter(sms1, Sample == 0)
+sms_sample0 <- filter(sms_efa, Sample == 0)
 
 # sms_sample0 <- read_spss('S:/shared/PPALab/SMS PA 2/Data/SMSPA2_surveydata_jan2020sample0_139.sav')
 
+
+#### normality at item level
 
 library(psych)
 
@@ -89,7 +91,8 @@ correlation <- cor(efadat, use = "pairwise.complete.obs") #pairwise deletion
 library(corrplot)
 correlation.pvalues <- cor.mtest(correlation)
 
-corrplot(correlation, type = "upper", order = "hclust",
+corrplot(correlation, method = "number", type = "upper", order = "hclust",
+         col = "black",
          p.mat = correlation.pvalues[["p"]], sig.level = .01)
 
 ### Suitability of Data
@@ -190,7 +193,7 @@ p = ggplot(eigendat, aes(x=num, y=eigenvalue, shape=type)) +
   #Apply our apa-formatting theme
   apatheme
 # #Call the plot. Looks pretty!
-# p
+p
 # # ggsave('parallel.png', width=6, height=6, unit='in', dpi=300)
 
 #Return eigenvalues, and number of eigenvalues over 0.7
@@ -206,45 +209,32 @@ sum(parallel$fa.values > .7) #new Kaiser criteria
 
 nf = 4 #number of factors
 
-one <- fa(efadat[, -c(19)], #AcceptM_7 is duplicate
+one <- fa(efadat, 
    rotate = "promax",  nf = 4,
    fm = "ml")
 #average communality
 com <- one[["communality"]]
 sum(com) / length(com)
 
-# Remove AcceptB_3() for cross loading
-initial<-efadat[ , -c(17, 19, 20, 21)] %>% 
-  fa(nfactors = nf,
-   rotate = "promax",
-   fm = "ml")
 
-# Remove AcceptB_3 (22) for loading > 0.3 on 2 factors
-# Remove AcceptB_4 (23) for loading > 0.3 on 2 factors
-# Remove AcceptB_5 (24) for loading > 0.3 on 2 factors
-efadat[ , -c(17, 19, 20, 21:24)] %>% 
+
+efadat[ , c(2, 3, 6,  #factor1
+                 8,9, 10, 12,        #factor2
+             15, 16,18,    #factor3
+            25,26,27  #factor4
+            )] %>% 
   fa(nfactors = nf,
      rotate = "promax",
      fm = "ml")
 
-# Remove AcceptB_8, AcceptB_9, and AcceptB_10 (27,28,29) for being too similar
-efadat[ , -c(17, 19, 20, 21:24, 27:29)] %>% 
-  fa(nfactors = nf,
-     rotate = "promax",
-     fm = "ml")
 
-# Remove SMindM_6 SMindB_1 to reduce items
-efadat[ , -c(6, 7, 17, 19, 20, 21, 22:24, 27:29)] %>% 
-  fa(nfactors = nf,
-     rotate = "promax",
-     fm = "ml")
 
 
 
 finalmodel<- efadat[ , c(1, 3, 4, 5,                #factor1
              9, 10,  11, 12,               #factor2
             15, 16, 18,         #factor3
-            22, 23, 24, 25       #factor4
+           21,22,23,25      #factor4
             )] %>% 
   fa(nfactors = nf,
      rotate = "promax",
